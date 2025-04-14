@@ -3,10 +3,10 @@ import aliasUrl from "@/types";
 import { NextRequest } from "next/server";
 
 export async function GET(
-    request: NextRequest,
-    { params }: { params: { alias: string } }
+    request: Request,
+    { params }: { params: Promise<{ alias: string }> }
 ) {
-    const alias = (await params).alias;
+    const { alias } = await params;
     const collection = await getCollection(COLLECTION_NAME);
     const url = await collection.findOne({ alias: alias });
 

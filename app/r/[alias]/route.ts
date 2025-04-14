@@ -2,8 +2,11 @@ import getCollection, { COLLECTION_NAME } from '@/db';
 import aliasUrl from '@/types';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest, { params }: { params: { alias: string } }) {
-    const alias = (await params).alias;
+export async function GET(
+    request: NextRequest,
+    { params }: { params: Promise<{ alias: string }> }
+) {
+    const { alias } = await params;
     const collection = await getCollection(COLLECTION_NAME);
     const data = await collection.findOne({ alias: alias });
     const url = data as aliasUrl | null;
