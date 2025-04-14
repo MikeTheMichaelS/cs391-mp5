@@ -33,8 +33,19 @@ export async function GET(
 
 export async function POST(request: NextRequest) {
     const body = await request.json() as aliasUrl;
-    console.log(body);
     const { longUrl, alias } = body;
+    if (longUrl === "" || alias === "") {
+        return new Response(
+            JSON.stringify(
+                {
+                    success: false,
+                    occupied: false,
+                    alias: alias
+                }
+            )
+        );
+    };
+
     const collection = await getCollection(COLLECTION_NAME);
     const url = await collection.findOne({ alias: alias });
 

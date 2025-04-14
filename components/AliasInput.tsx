@@ -34,13 +34,22 @@ export default function AliasInput() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        const alias = e.currentTarget.alias.value;
+        const longUrl = e.currentTarget.longUrl.value;
+
+        if (alias === "" || longUrl === "") {
+            console.error("Alias or long URL is empty");
+            alert("Alias or long URL cannot be empty.");
+            return;
+        };
+
         if (aliasError || longUrlError) {
             console.error("Invalid input");
             alert("Invalid input. Please check your URL and alias.");
             return;
         }
-        const alias = e.currentTarget.alias.value;
-        const longUrl = e.currentTarget.longUrl.value;
+
         try {
             const res = await fetch(`${ALIAS_API_URL}${alias}`, {
                 method: "POST",
@@ -63,8 +72,6 @@ export default function AliasInput() {
 
     useEffect(() => {
         async function checkAlias(alias: string, setAliasError: React.Dispatch<React.SetStateAction<boolean>>) {
-            console.log("ALIAS_API_URL", ALIAS_API_URL);
-            console.log("Alias checking endpoint", `${ALIAS_API_URL}${alias}`);
             if (alias === "") {
                 setAliasError(false);
                 return;
@@ -119,7 +126,7 @@ export default function AliasInput() {
                     variant="contained"
                     color="primary"
                     type="submit"
-                    disabled={aliasError || longUrlError}
+                    disabled={aliasError || longUrlError || alias !== "" || longUrl == ""}
                     sx={{ display: "block", width: "100%", marginBottom: 2, marginTop: 2 }}
                 >
                     Shorten URL
