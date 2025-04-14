@@ -1,8 +1,9 @@
 import getCollection, { COLLECTION_NAME } from "@/db";
 import aliasUrl from "@/types";
+import { NextRequest } from "next/server";
 
 export async function GET(
-    request: Request,
+    request: NextRequest,
     { params }: { params: { alias: string } }
 ) {
     const alias = (await params).alias;
@@ -30,7 +31,7 @@ export async function GET(
     );
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     const body = await request.json() as aliasUrl;
     console.log(body);
     const { longUrl, alias } = body;

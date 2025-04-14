@@ -1,8 +1,8 @@
 import getCollection, { COLLECTION_NAME } from '@/db';
 import aliasUrl from '@/types';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: Request, { params }: { params: { alias: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { alias: string } }) {
     const alias = (await params).alias;
     const collection = await getCollection(COLLECTION_NAME);
     const data = await collection.findOne({ alias: alias });
