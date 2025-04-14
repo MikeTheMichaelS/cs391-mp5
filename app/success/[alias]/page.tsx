@@ -24,7 +24,7 @@ export default function SuccessPage() {
             <p>Your URL has been successfully shortened.</p>
             <p>Your shortened URL is {" "}
                 <Link href={`/r/${param}`}>
-                    {`${process.env.NEXT_PUBLIC_BASE_URL}/r/${param}`}
+                    {`${process.env.NEXT_PUBLIC_BASE_URL}r/${param}`}
                 </Link>
             </p>
         </StyledDiv>
