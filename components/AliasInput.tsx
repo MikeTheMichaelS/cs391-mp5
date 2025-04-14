@@ -63,6 +63,8 @@ export default function AliasInput() {
 
     useEffect(() => {
         async function checkAlias(alias: string, setAliasError: React.Dispatch<React.SetStateAction<boolean>>) {
+            console.log("ALIAS_API_URL", ALIAS_API_URL);
+            console.log("Alias checking endpoint", `${ALIAS_API_URL}${alias}`);
             if (alias === "") {
                 setAliasError(false);
                 return;
