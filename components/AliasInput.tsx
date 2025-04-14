@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-const ALIAS_API_URL = process.env.NEXT_PUBLIC_API_URL as string + "/";
+const ALIAS_API_URL = "/api/";
 
 const MyStyledDiv = styled.div`
     min-height: 75%;
