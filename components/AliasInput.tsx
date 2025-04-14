@@ -22,8 +22,23 @@ const MyStyledDiv = styled.div`
 export default function AliasInput() {
     const router = useRouter();
 
+    const urlPattern = new RegExp(
+        "^https?:\\/\\/[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(/[\\S]*)?$"
+    );
+
+    const [alias, setAlias] = useState<string>("");
+    const [aliasError, setAliasError] = useState<boolean>(false);
+
+    const [longUrl, setLongUrl] = useState<string>("");
+    const [longUrlError, setLongUrlError] = useState<boolean>(false);
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (aliasError || longUrlError) {
+            console.error("Invalid input");
+            alert("Invalid input. Please check your URL and alias.");
+            return;
+        }
         const alias = e.currentTarget.alias.value;
         const longUrl = e.currentTarget.longUrl.value;
         try {
@@ -45,16 +60,6 @@ export default function AliasInput() {
             console.error(error);
         }
     }
-
-    const urlPattern = new RegExp(
-        "^https?:\\/\\/[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(/[\\S]*)?$"
-    );
-
-    const [alias, setAlias] = useState<string>("");
-    const [aliasError, setAliasError] = useState<boolean>(false);
-
-    const [longUrl, setLongUrl] = useState<string>("");
-    const [longUrlError, setLongUrlError] = useState<boolean>(false);
 
     useEffect(() => {
         async function checkAlias(alias: string, setAliasError: React.Dispatch<React.SetStateAction<boolean>>) {
